@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "api-endpoints"
+version = "0.0.1"
+description = "Task management microservice"
+authors = ["nithinn <nithinnmanickam@gmail.com>"]
+license = "GNU"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12.1"
+fastapi = "^0.108.0"
+uvicorn = "^0.25.0"
+pylint = "^3.0.3"
+pydantic = "^2.5.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
