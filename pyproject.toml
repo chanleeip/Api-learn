@@ -12,6 +12,7 @@ fastapi = "^0.108.0"
 uvicorn = "^0.25.0"
 pylint = "^3.0.3"
 pydantic = "^2.5.3"
+databases = {extras = ["postgresql"], version = "^0.8.0"}
 
 [tool.poetry.scripts]
 server="uvicorn main:app --reload"
