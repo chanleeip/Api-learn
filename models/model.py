@@ -19,10 +19,7 @@ class Task(BaseModel):
     task_description:str
 
 class User(BaseModel):
-    serial_no:int
-    unique_id:uuid4=Field(default_factory=uuid4)
+    user_name:str
     first_name:str
     middle_name:Union[str , None]=None
     last_name:str
-    date_created:datetime=datetime.now()
-
