@@ -20,9 +20,9 @@ This is a task_management microservice
 '''
 
 
-from fastapi import FastAPI,Query,Path
-from typing import Annotated,Union
-from models.model import User
+from fastapi import FastAPI
+from  API.users import users
+
 app=FastAPI()
 
 users_details=[]
@@ -32,19 +32,5 @@ users_details=[]
 def home_page():
     return {"Hello world":"nithinn"}
 
-@app.get("/users/{user_id}")
-async def add_users(
-    user_id:Annotated[int,Path(...,title="user_id",description="unqiue id for each user")],
-    first_name:Annotated[str,Query(max_length=20,title="Enter the first name")],
-    last_name:Annotated[str,Query(...,max_length=20,title="Enter the last name")],
-    middle_name:Annotated[str,None]=None
-    ):
-
-    users_details.append(User(id=user_id,first_name=first_name,middle_name=middle_name,last_name=last_name).dict())
-    return (users_details)
-
-
-@app.get("/users/")
-async def list_users():
-    return users_details
+app.include_router(users)
 

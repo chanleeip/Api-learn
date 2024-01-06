@@ -1,8 +1,8 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 from uuid import uuid4
 from typing import Annotated,Union
 from enum import Enum
-from time import time
+from datetime import datetime
 
 class Status (str,Enum):
     finished=True
@@ -13,14 +13,16 @@ class Gender(str,Enum):
     female="female"
     
 class Task(BaseModel):
-    id:uuid4=uuid4()
+    id:uuid4=Field(default_factory=uuid4)
     task_name:str
     status:Status
     task_description:str
 
 class User(BaseModel):
-    id:int
+    serial_no:int
+    unique_id:uuid4=Field(default_factory=uuid4)
     first_name:str
     middle_name:Union[str , None]=None
     last_name:str
-    date_created:time=time()
+    date_created:datetime=datetime.now()
+

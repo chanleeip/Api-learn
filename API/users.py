@@ -12,10 +12,10 @@ async def add_users(
     middle_name:Annotated[str,None]=None
     ):
 
-    users_details.append(User(id=user_id,first_name=first_name,middle_name=middle_name,last_name=last_name).dict())
+    users_details.append(User(serial_no=user_id,first_name=first_name,middle_name=middle_name,last_name=last_name).dict())
     return (users_details)
 
 
-@users.get("/users/")
+@users.get("/users",tags=['users'])
 async def list_users():
     return users_details
