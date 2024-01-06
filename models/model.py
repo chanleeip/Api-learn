@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from uuid import uuid4
-from typing import Annotated
+from typing import Annotated,Union
 from enum import Enum
 
 class Status (str,Enum):
@@ -20,5 +20,5 @@ class Task(BaseModel):
 class User(BaseModel):
     id:int
     first_name:str
-    middle_name:Annotated[str , None]=None
+    middle_name:Union[str , None]=None
     last_name:str

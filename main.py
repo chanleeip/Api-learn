@@ -21,10 +21,11 @@ This is a task_management microservice
 
 
 from fastapi import FastAPI,Query,Path
-from typing import Annotated
+from typing import Annotated,Union
 from models.model import User
 app=FastAPI()
 
+users_details={}
 
 
 @app.get("/")
@@ -32,9 +33,15 @@ def home_page():
     return {"Hello world":"nithinn"}
 
 @app.get("/users/{user_id}")
-# async def list_users(user_id:int=Path(...,title="user_id",description="unqiue id for each user"),first_name:Annotated[str,None,Query(max_length=20,title="Enter the first name")]=...,middle_name=Annotated[str,None],last_name:Annotated[str,None,Query(max_length=20,title="Enter the last name")]=...):
-#     return (User(id=user_id,first_name=first_name,middle_name=middle_name,last_name=last_name))
-def printuserid(user_id:Annotated[int,bool]):
-    return user_id
+async def list_users(
+    user_id:Annotated[int,Path(...,title="user_id",description="unqiue id for each user")],
+    first_name:Annotated[str,Query(max_length=20,title="Enter the first name")],
+    last_name:Annotated[str,Query(...,max_length=20,title="Enter the last name")],
+    middle_name:Annotated[str,None]=None
+    ):
 
+    users_details.update(User(id=user_id,first_name=first_name,middle_name=middle_name,last_name=last_name))
+    return (User(id=user_id,first_name=first_name,middle_name=middle_name,last_name=last_name))
+
+@app.get("/users/}")
 
