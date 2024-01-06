@@ -1,16 +1,15 @@
-from pydantic import BaseModel,Field
-from uuid import uuid4
-from typing import Annotated,Union
+from uuid import uuid4 
+from typing import Union
 from enum import Enum
-from datetime import datetime
+from pydantic import BaseModel,Field
 
 class Status (str,Enum):
     finished=True
     not_finished=False
 
 class Gender(str,Enum):
-    Male="male"
-    female="female"
+    MALE="male"
+    FEMALE="female"
     
 class Task(BaseModel):
     id:uuid4=Field(default_factory=uuid4)

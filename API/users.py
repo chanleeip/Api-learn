@@ -1,6 +1,6 @@
+from typing import Annotated
 from fastapi import APIRouter,Path,Query
 from models import User
-from typing import Annotated,Union
 from db.db import Users,session
 from sqlalchemy.orm import Session
 users=APIRouter()
@@ -18,7 +18,7 @@ async def add_users(
         add_user_db(data=data,ses=session)
         return {"status":"successfull"}
     except Exception as e:
-        return (f"{e}")
+        return e
     
 @users.get("/users/{user_name}")
 async def get_user(
@@ -27,6 +27,9 @@ async def get_user(
     data=get_user_db(user_name=user_name,ses=session)
     return data
 
+@users.get("/users")
+async def get_all_users():
+    return session.query(Users).all()
 
 
 
@@ -44,11 +47,10 @@ def add_user_db(data:User,ses:Session):
     return True
 
 def get_user_db(user_name:str,ses:Session):
-    data=session.query(Users).filter(Users.user_name==user_name).first()
+    data=ses.query(Users).filter(Users.user_name==user_name).first()
     if data:
         return data
-    else:
-        return f"No account found with this username"
+    return "No account found with this username"
 
 @users.get("/users",tags=['users'])
 async def list_users():

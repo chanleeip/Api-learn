@@ -1,8 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Sequence,create_engine,TIMESTAMP
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 import uuid
 from datetime import datetime
+from sqlalchemy import Column, Integer, String, Sequence,create_engine,TIMESTAMP
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.dialects.postgresql import UUID
 
 Base=declarative_base()
