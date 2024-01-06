@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from uuid import uuid4
 from typing import Annotated,Union
 from enum import Enum
+from time import time
 
 class Status (str,Enum):
     finished=True
@@ -22,3 +23,4 @@ class User(BaseModel):
     first_name:str
     middle_name:Union[str , None]=None
     last_name:str
+    date_created:time=time()
