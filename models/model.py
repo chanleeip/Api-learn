@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from uuid import uuid5
+from uuid import uuid4
 from typing import Annotated
 from enum import Enum
 
@@ -12,12 +12,13 @@ class Gender(str,Enum):
     female="female"
     
 class Task(BaseModel):
-    id:uuid5=uuid5()
+    id:uuid4=uuid4()
     task_name:str
     status:Status
     task_description:str
 
 class User(BaseModel):
+    id:int
     first_name:str
     middle_name:Annotated[str , None]=None
     last_name:str
