@@ -20,14 +20,12 @@ async def add_users(
     except Exception as e:
         return (f"{e}")
     
-# @users.get("/users/{user_name}")
-# async def get_user(
-#     user_name:Annotated[str,Path(...,description="give username")]
-#     ):
-#     try:
-#         get_user_db(user_name=user_name,ses=session)
-#     except Exception as e:
-#         return (f"{e}")
+@users.get("/users/{user_name}")
+async def get_user(
+    user_name:Annotated[str,Path(...,description="give username")]
+    ):
+    data=get_user_db(user_name=user_name,ses=session)
+    return data
 
 
 
@@ -45,6 +43,12 @@ def add_user_db(data:User,ses:Session):
     ses.commit()
     return True
 
+def get_user_db(user_name:str,ses:Session):
+    data=session.query(Users).filter(Users.user_name==user_name).first()
+    if data:
+        return data
+    else:
+        return f"No account found with this username"
 
 @users.get("/users",tags=['users'])
 async def list_users():
