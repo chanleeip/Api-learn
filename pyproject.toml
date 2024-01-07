@@ -16,6 +16,7 @@ databases = {extras = ["postgresql"], version = "^0.8.0"}
 psycopg2 = "^2.9.9"
 alembic = "^1.13.1"
 asyncpg = "^0.29.0"
+psycopg2-binary = "^2.9.9"
 
 [tool.poetry.scripts]
 server="uvicorn main:app --reload"
