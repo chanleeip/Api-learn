@@ -1,9 +1,8 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Sequence,TIMESTAMP,create_engine
-from sqlalchemy.ext.asyncio.session import AsyncSession
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Column, Integer, String, Sequence,create_engine,TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.dialects.postgresql import UUID
 
 Base=declarative_base()
@@ -17,11 +16,8 @@ def init_db():
 Session=sessionmaker(bind=engine)
 session=Session()
 
-
 def get_session():
     return session
-
-
 
 class Users(Base):
     __tablename__='users'
