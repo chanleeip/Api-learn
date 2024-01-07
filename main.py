@@ -26,11 +26,7 @@ from  API.users import users
 app=FastAPI()
 origins=['*']
 app.add_middleware(
-    CORSMiddleware,
-    allowed_origins=origins,
-    allow_credintials=True,
-    allow_methods=['*'],
-    allow_headers=['*']
+    CORSMiddleware
 )
 
 @app.get("/")
