@@ -1,10 +1,9 @@
 from typing import Annotated
 from fastapi import APIRouter,Path,Query
 from models import User
-from db.db import init_db,get_session
+from db import get_session
 from API_functions import get_all_user_db,get_user_db,add_user_db
 users=APIRouter()
-init_db()
 @users.post("/users/{user_name}")
 async def add_users(
     user_name:Annotated[str,Path(...,title="user_name",description="username for each user")],
