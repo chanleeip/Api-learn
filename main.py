@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from  API.users import users
 
 ''' This is a task_management microservice '''
@@ -23,7 +24,14 @@ from  API.users import users
 
 
 app=FastAPI()
-
+origins=['*']
+app.add_middleware(
+    CORSMiddleware,
+    allowed_origins=origins,
+    allow_credintials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 @app.get("/")
 def home_page():
