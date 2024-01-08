@@ -3,20 +3,27 @@ from typing import Union
 from enum import Enum
 from pydantic import BaseModel,Field
 
-class Status (str,Enum):
-    finished=True
-    not_finished=False
+class Status (Enum):
+    finished="finished"
+    not_finished="not_finished"
 
 class Gender(Enum):
     male="male"
     female="female"
     non_binary="non_binary"
     
+class Priority(Enum):
+    high_priority="high_priority"
+    low_priority="low_priority"
+    no_priority="no_priority"
 class Task(BaseModel):
-    id:uuid4=Field(default_factory=uuid4)
     task_name:str
     status:Status
     task_description:str
+    priority:Priority
+    due_date:str
+    tags:list[str]=[]
+    attachments:list[str]=[]
 
 class User(BaseModel):
     username:Union[str , None]=None
