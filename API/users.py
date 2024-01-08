@@ -1,6 +1,6 @@
 from typing import Annotated
 from fastapi import APIRouter,Path,Query,Body,Depends
-from models import User
+from models import User,Gender
 from db import get_session
 from API_functions import get_all_user_db,get_user_db,add_user_db,delete_user_db,update_user_db
 users=APIRouter()
@@ -8,12 +8,9 @@ users=APIRouter()
 @users.post("/users/{user_name}")
 def add_users(
     user_name:Annotated[str,Path(...,title="user_name",description="username for each user")],
-    first_name:Annotated[str,Query(max_length=20,title="Enter the first name")],
-    last_name:Annotated[str,Query(...,max_length=20,title="Enter the last name")],
-    middle_name:Annotated[str,None]=None
+    data: User = Body(...)
     ):
-    data=User(user_name=user_name,first_name=first_name,middle_name=middle_name,last_name=last_name)
-    data=add_user_db(data=data,ses=get_session())
+    data=add_user_db(data=data,ses=get_session(),user_name=user_name)
     return data
     
 @users.delete("/users/{user_name}")

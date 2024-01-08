@@ -7,9 +7,10 @@ class Status (str,Enum):
     finished=True
     not_finished=False
 
-class Gender(str,Enum):
-    MALE="male"
-    FEMALE="female"
+class Gender(Enum):
+    male="male"
+    female="female"
+    non_binary="non_binary"
     
 class Task(BaseModel):
     id:uuid4=Field(default_factory=uuid4)
@@ -18,7 +19,8 @@ class Task(BaseModel):
     task_description:str
 
 class User(BaseModel):
-    user_name:str
+    username:Union[str , None]=None
     first_name:str
     middle_name:Union[str , None]=None
     last_name:str
+    gender:Union[Gender,None]=None
