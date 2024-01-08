@@ -19,8 +19,8 @@ class Task(BaseModel):
     task_description:str
 
 class User(BaseModel):
-    user_name:str
+    username:Union[str , None]=None
     first_name:str
     middle_name:Union[str , None]=None
     last_name:str
-    gender:Gender
+    gender:Union[Gender,None]=None
