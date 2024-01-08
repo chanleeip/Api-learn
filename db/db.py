@@ -1,8 +1,10 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, Integer, String,TIMESTAMP
+from sqlalchemy import Column, Integer, String,TIMESTAMP,Enum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import ENUM
+from models import Gender
 
 Base=declarative_base()
 
@@ -15,4 +17,5 @@ class Users(Base):
     last_name=Column(String(30),nullable=False)
     middle_name=Column(String(30),nullable=True)
     date_created=Column(TIMESTAMP(timezone=False),default=datetime.now())
+    gender=Column(ENUM(Gender),nullable=True)
 

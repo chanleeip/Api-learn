@@ -6,11 +6,13 @@ from db import Users
 
 def add_user_db(data:User,ses:Session):
     try:
+        print(data.gender.value)
         new_user = Users(
             user_name=data.user_name,
             first_name=data.first_name,
             last_name=data.last_name,
-            middle_name=data.middle_name
+            middle_name=data.middle_name,
+            gender=data.gender.value
         )
         ses.add(new_user)
         ses.commit()
@@ -42,7 +44,7 @@ def delete_user_db(username:str,ses:Session):
     return {"status":"No account found with this username"}
     
 def update_user_db(ses:Session,body:User,username:str):
-    print(username,body.user_name)
+    print(body.gender.value)
     if username != body.user_name:
         new_username=ses.query(Users).filter(Users.user_name==body.user_name).first()
         if new_username is None:
@@ -52,6 +54,7 @@ def update_user_db(ses:Session,body:User,username:str):
                 org_data.first_name = body.first_name
                 org_data.middle_name = body.middle_name
                 org_data.last_name = body.last_name
+                org_data.gender=body.gender.value
                 ses.commit()
                 return {"status":"sucessfully updated username and details"}
         else:
@@ -62,6 +65,7 @@ def update_user_db(ses:Session,body:User,username:str):
             org_data.first_name = body.first_name
             org_data.middle_name = body.middle_name
             org_data.last_name = body.last_name
+            org_data.gender=body.gender.value
             ses.commit()
             return {"status":"updated the details"}
     return {"status":"Error"}
