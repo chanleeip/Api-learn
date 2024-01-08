@@ -32,3 +32,36 @@ def get_user_db(user_name:str,ses:Session):
 def get_all_user_db(ses:Session):
     data=ses.query(Users).all()
     return  {"status":"sucessfull","data":data}
+
+def delete_user_db(username:str,ses:Session):
+    data=ses.query(Users).filter(Users.user_name==username).first()
+    if data:
+        ses.delete(data)
+        ses.commit()
+        return {"status":"sucessfull"}
+    return {"status":"No account found with this username"}
+    
+def update_user_db(ses:Session,body:User,username:str):
+    print(username,body.user_name)
+    if username != body.user_name:
+        new_username=ses.query(Users).filter(Users.user_name==body.user_name).first()
+        if new_username is None:
+            org_data=ses.query(Users).filter(Users.user_name==username).first()
+            if org_data:
+                org_data.user_name = body.user_name
+                org_data.first_name = body.first_name
+                org_data.middle_name = body.middle_name
+                org_data.last_name = body.last_name
+                ses.commit()
+                return {"status":"sucessfully updated username and details"}
+        else:
+            return {"status":"Username is taken. Try other username"}
+    elif username==body.user_name:
+        org_data=ses.query(Users).filter(Users.user_name==username).first()
+        if org_data:
+            org_data.first_name = body.first_name
+            org_data.middle_name = body.middle_name
+            org_data.last_name = body.last_name
+            ses.commit()
+            return {"status":"updated the details"}
+    return {"status":"Error"}
